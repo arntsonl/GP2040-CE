@@ -4,6 +4,10 @@
 #include "gpaddon.h"
 #include "gamepad.h"
 
+#ifndef BOOTSEL_BUTTON_MASK
+#define BOOTSEL_BUTTON_MASK 0
+#endif
+
 // BootselButton Module Name
 #define BootselButtonName "BootselButton"
 

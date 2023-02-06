@@ -20,6 +20,7 @@
 #include "addons/neopicoleds.h"
 #include "addons/pleds.h"
 #include "addons/i2canalog1219.h"
+#include "addons/i2cioexpander.h"
 #include "addons/turbo.h"
 #include "addons/board_led.h"
 
@@ -112,6 +113,28 @@ void Storage::setDefaultBoardOptions()
 	boardOptions.dualDirCombineMode      = DUAL_DIRECTIONAL_COMBINE_MODE;
 	boardOptions.analogAdcPinX      	 = ANALOG_ADC_VRX;
 	boardOptions.analogAdcPinY      	 = ANALOG_ADC_VRY;
+	boardOptions.i2cIOExpanderSCLPin 	 = I2C_IOEXPANDER_SCL_PIN;
+	boardOptions.i2cIOExpanderSDAPin 	 = I2C_IOEXPANDER_SDA_PIN;
+	boardOptions.i2cIOExpanderINTPin     = I2C_IOEXPANDER_INT_PIN;
+	boardOptions.i2cIOExpanderBlock      = (I2C_IOEXPANDER_BLOCK == i2c0) ? 0 : 1;
+	boardOptions.i2cIOExpanderSpeed      = I2C_IOEXPANDER_SPEED;
+	boardOptions.i2cIOExpanderAddress    = I2C_IOEXPANDER_ADDRESS;
+	boardOptions.i2cIOExpanderPins[0] 		 = I2C_IOEXPANDER_PIN_0; // PCA95x5 uses Pins 0-7, 10-17
+	boardOptions.i2cIOExpanderPins[1] 		 = I2C_IOEXPANDER_PIN_1;
+	boardOptions.i2cIOExpanderPins[2] 		 = I2C_IOEXPANDER_PIN_2;
+	boardOptions.i2cIOExpanderPins[3] 		 = I2C_IOEXPANDER_PIN_3;
+	boardOptions.i2cIOExpanderPins[4] 		 = I2C_IOEXPANDER_PIN_4;
+	boardOptions.i2cIOExpanderPins[5] 		 = I2C_IOEXPANDER_PIN_5;
+	boardOptions.i2cIOExpanderPins[6] 		 = I2C_IOEXPANDER_PIN_6;
+	boardOptions.i2cIOExpanderPins[7] 		 = I2C_IOEXPANDER_PIN_7;
+	boardOptions.i2cIOExpanderPins[8] 		 = I2C_IOEXPANDER_PIN_10;
+	boardOptions.i2cIOExpanderPins[9] 		 = I2C_IOEXPANDER_PIN_11;
+	boardOptions.i2cIOExpanderPins[10] 		 = I2C_IOEXPANDER_PIN_12;
+	boardOptions.i2cIOExpanderPins[11] 		 = I2C_IOEXPANDER_PIN_13;
+	boardOptions.i2cIOExpanderPins[12] 		 = I2C_IOEXPANDER_PIN_14;
+	boardOptions.i2cIOExpanderPins[13] 		 = I2C_IOEXPANDER_PIN_15;
+	boardOptions.i2cIOExpanderPins[14] 		 = I2C_IOEXPANDER_PIN_16;
+	boardOptions.i2cIOExpanderPins[15] 		 = I2C_IOEXPANDER_PIN_17;
 	boardOptions.bootselButtonMap		 = BOOTSEL_BUTTON_MASK;
 	strncpy(boardOptions.boardVersion, GP2040VERSION, strlen(GP2040VERSION));
 	setBoardOptions(boardOptions);

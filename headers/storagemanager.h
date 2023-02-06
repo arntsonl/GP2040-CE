@@ -83,6 +83,13 @@ struct BoardOptions
 	uint8_t analogAdcPinX;
 	uint8_t analogAdcPinY;
 	uint16_t bootselButtonMap;
+	uint8_t i2cIOExpanderSDAPin;
+	uint8_t i2cIOExpanderSCLPin;
+	uint8_t i2cIOExpanderINTPin;
+	int i2cIOExpanderBlock;
+	uint32_t i2cIOExpanderSpeed;
+	uint8_t i2cIOExpanderAddress;
+	uint32_t i2cIOExpanderPins[16];
 	char boardVersion[32]; // 32-char limit to board name
 	uint32_t checksum;
 };

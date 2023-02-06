@@ -479,6 +479,28 @@ std::string setAddonOptions()
 	boardOptions.analogAdcPinX = doc["analogAdcPinX"] == -1 ? 0xFF : doc["analogAdcPinX"];
 	boardOptions.analogAdcPinY = doc["analogAdcPinY"] == -1 ? 0xFF : doc["analogAdcPinY"];
 	boardOptions.bootselButtonMap = doc["bootselButtonMap"];
+	boardOptions.i2cIOExpanderSDAPin = doc["i2cIOExpanderSDAPin"] == -1 ? 0xFF : doc["i2cIOExpanderSDAPin"];
+	boardOptions.i2cIOExpanderSCLPin = doc["i2cIOExpanderSCLPin"] == -1 ? 0xFF : doc["i2cIOExpanderSCLPin"];
+	boardOptions.i2cIOExpanderINTPin = doc["i2cIOExpanderINTPin"] == -1 ? 0xFF : doc["i2cIOExpanderINTPin"];
+	boardOptions.i2cIOExpanderBlock = doc["i2cIOExpanderBlock"];
+	boardOptions.i2cIOExpanderSpeed = doc["i2cIOExpanderSpeed"];
+	boardOptions.i2cIOExpanderAddress = doc["i2cIOExpanderAddress"];
+	boardOptions.i2cIOExpanderPins[0] = doc["i2cIOExpanderPin0"];
+	boardOptions.i2cIOExpanderPins[1] = doc["i2cIOExpanderPin1"];
+	boardOptions.i2cIOExpanderPins[2] = doc["i2cIOExpanderPin2"];
+	boardOptions.i2cIOExpanderPins[3] = doc["i2cIOExpanderPin3"];
+	boardOptions.i2cIOExpanderPins[4] = doc["i2cIOExpanderPin4"];
+	boardOptions.i2cIOExpanderPins[5] = doc["i2cIOExpanderPin5"];
+	boardOptions.i2cIOExpanderPins[6] = doc["i2cIOExpanderPin6"];
+	boardOptions.i2cIOExpanderPins[7] = doc["i2cIOExpanderPin7"];
+	boardOptions.i2cIOExpanderPins[8] = doc["i2cIOExpanderPin10"];
+	boardOptions.i2cIOExpanderPins[9] = doc["i2cIOExpanderPin11"];
+	boardOptions.i2cIOExpanderPins[10] = doc["i2cIOExpanderPin12"];
+	boardOptions.i2cIOExpanderPins[11] = doc["i2cIOExpanderPin13"];
+	boardOptions.i2cIOExpanderPins[12] = doc["i2cIOExpanderPin14"];
+	boardOptions.i2cIOExpanderPins[13] = doc["i2cIOExpanderPin15"];
+	boardOptions.i2cIOExpanderPins[14] = doc["i2cIOExpanderPin16"];
+	boardOptions.i2cIOExpanderPins[15] = doc["i2cIOExpanderPin17"];
 
 	Storage::getInstance().setBoardOptions(boardOptions);
 
@@ -515,6 +537,28 @@ std::string getAddonOptions()
 	doc["analogAdcPinX"] = boardOptions.analogAdcPinX == 0xFF ? -1 : boardOptions.analogAdcPinX;
 	doc["analogAdcPinY"] = boardOptions.analogAdcPinY == 0xFF ? -1 : boardOptions.analogAdcPinY;
 	doc["bootselButtonMap"] = boardOptions.bootselButtonMap;
+	doc["i2cIOExpanderSDAPin"] = boardOptions.i2cIOExpanderSDAPin;
+	doc["i2cIOExpanderSCLPin"] = boardOptions.i2cIOExpanderSCLPin;
+	doc["i2cIOExpanderINTPin"] = boardOptions.i2cIOExpanderINTPin;
+	doc["i2cIOExpanderBlock"] = boardOptions.i2cIOExpanderBlock;
+	doc["i2cIOExpanderSpeed"] = boardOptions.i2cIOExpanderSpeed;
+	doc["i2cIOExpanderAddress"] = boardOptions.i2cIOExpanderAddress;
+	doc["i2cIOExpanderPin0"] = boardOptions.i2cIOExpanderPins[0];
+	doc["i2cIOExpanderPin1"] = boardOptions.i2cIOExpanderPins[1];
+	doc["i2cIOExpanderPin2"] = boardOptions.i2cIOExpanderPins[2];
+	doc["i2cIOExpanderPin3"] = boardOptions.i2cIOExpanderPins[3];
+	doc["i2cIOExpanderPin4"] = boardOptions.i2cIOExpanderPins[4];
+	doc["i2cIOExpanderPin5"] = boardOptions.i2cIOExpanderPins[5];
+	doc["i2cIOExpanderPin6"] = boardOptions.i2cIOExpanderPins[6];
+	doc["i2cIOExpanderPin7"] = boardOptions.i2cIOExpanderPins[7];
+	doc["i2cIOExpanderPin10"] = boardOptions.i2cIOExpanderPins[8];
+	doc["i2cIOExpanderPin11"] = boardOptions.i2cIOExpanderPins[9];
+	doc["i2cIOExpanderPin12"] = boardOptions.i2cIOExpanderPins[10];
+	doc["i2cIOExpanderPin13"] = boardOptions.i2cIOExpanderPins[11];
+	doc["i2cIOExpanderPin14"] = boardOptions.i2cIOExpanderPins[12];
+	doc["i2cIOExpanderPin15"] = boardOptions.i2cIOExpanderPins[13];
+	doc["i2cIOExpanderPin16"] = boardOptions.i2cIOExpanderPins[14];
+	doc["i2cIOExpanderPin17"] = boardOptions.i2cIOExpanderPins[15];
 
 	Gamepad * gamepad = Storage::getInstance().GetGamepad();
 	auto usedPins = doc.createNestedArray("usedPins");

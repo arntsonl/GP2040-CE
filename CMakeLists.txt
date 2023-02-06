@@ -49,6 +49,7 @@ src/addons/board_led.cpp
 src/addons/dualdirectional.cpp
 src/addons/reverse.cpp
 src/addons/i2canalog1219.cpp
+src/addons/i2cioexpander.cpp
 src/addons/bootsel_button.cpp
 )
 
@@ -65,6 +66,7 @@ AnimationStation
 TinyUSB_Gamepad
 FlashPROM
 ADS1219
+PCA95x5
 PlayerLEDs
 NeoPico
 OneBitDisplay
