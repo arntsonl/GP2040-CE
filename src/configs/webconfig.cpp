@@ -196,6 +196,7 @@ int set_file_data(fs_file* file, const DataAndStatusCode& dataAndStatusCode)
 	returnData.append(
 		"Server: GP2040-CE " GP2040VERSION "\r\n"
 		"Content-Type: application/json\r\n"
+		"Access-Control-Allow-Origin: *\r\n"
 		"Content-Length: "
 	);
 	returnData.append(std::to_string(dataAndStatusCode.data.length()));
@@ -415,6 +416,7 @@ std::string setDisplayOptions(DisplayOptions& displayOptions)
 	readDoc(displayOptions.splashChoice, doc, "splashChoice");
 	readDoc(displayOptions.splashDuration, doc, "splashDuration");
 	readDoc(displayOptions.displaySaverTimeout, doc, "displaySaverTimeout");
+	readDoc(displayOptions.turnOffWhenSuspended, doc, "turnOffWhenSuspended");
 
 	readDoc(displayOptions.buttonLayoutCustomOptions.paramsLeft.layout, doc, "buttonLayoutCustomOptions", "params", "layout");
 	readDoc(displayOptions.buttonLayoutCustomOptions.paramsLeft.common.startX, doc, "buttonLayoutCustomOptions", "params", "startX");
@@ -461,6 +463,7 @@ std::string getDisplayOptions() // Manually set Document Attributes for the disp
 	writeDoc(doc, "splashChoice", displayOptions.splashChoice);
 	writeDoc(doc, "splashDuration", displayOptions.splashDuration);
 	writeDoc(doc, "displaySaverTimeout", displayOptions.displaySaverTimeout);
+	writeDoc(doc, "turnOffWhenSuspended", displayOptions.turnOffWhenSuspended);
 
 	writeDoc(doc, "buttonLayoutCustomOptions", "params", "layout", displayOptions.buttonLayoutCustomOptions.paramsLeft.layout);
 	writeDoc(doc, "buttonLayoutCustomOptions", "params", "startX", displayOptions.buttonLayoutCustomOptions.paramsLeft.common.startX);
@@ -655,6 +658,7 @@ std::string setLedOptions()
 	readDoc(ledOptions.ledsPerButton, doc, "ledsPerButton");
 	readDoc(ledOptions.brightnessMaximum, doc, "brightnessMaximum");
 	readDoc(ledOptions.brightnessSteps, doc, "brightnessSteps");
+	readDoc(ledOptions.turnOffWhenSuspended, doc, "turnOffWhenSuspended");
 	readIndex(ledOptions.indexUp, "ledButtonMap", "Up");
 	readIndex(ledOptions.indexDown, "ledButtonMap", "Down");
 	readIndex(ledOptions.indexLeft, "ledButtonMap", "Left");
@@ -694,6 +698,7 @@ std::string getLedOptions()
 	writeDoc(doc, "ledsPerButton", ledOptions.ledsPerButton);
 	writeDoc(doc, "brightnessMaximum", ledOptions.brightnessMaximum);
 	writeDoc(doc, "brightnessSteps", ledOptions.brightnessSteps);
+	writeDoc(doc, "turnOffWhenSuspended", ledOptions.turnOffWhenSuspended);
 
 	const auto writeIndex = [&](const char* key0, const char* key1, int var)
 	{
@@ -1002,7 +1007,15 @@ std::string setAddonOptions()
 
 		TiltOptions& tiltOptions = Storage::getInstance().getAddonOptions().tiltOptions;
 	docToPin(tiltOptions.tilt1Pin, doc, "tilt1Pin");
+	docToValue(tiltOptions.factorTilt1LeftX, doc, "factorTilt1LeftX");
+	docToValue(tiltOptions.factorTilt1LeftY, doc, "factorTilt1LeftY");
+	docToValue(tiltOptions.factorTilt1RightX, doc, "factorTilt1RightX");
+	docToValue(tiltOptions.factorTilt1RightY, doc, "factorTilt1RightY");
 	docToPin(tiltOptions.tilt2Pin, doc, "tilt2Pin");
+	docToValue(tiltOptions.factorTilt2LeftX, doc, "factorTilt2LeftX");
+	docToValue(tiltOptions.factorTilt2LeftY, doc, "factorTilt2LeftY");
+	docToValue(tiltOptions.factorTilt2RightX, doc, "factorTilt2RightX");
+	docToValue(tiltOptions.factorTilt2RightY, doc, "factorTilt2RightY");
 	docToPin(tiltOptions.tiltLeftAnalogUpPin, doc, "tiltLeftAnalogUpPin");
 	docToPin(tiltOptions.tiltLeftAnalogDownPin, doc, "tiltLeftAnalogDownPin");
 	docToPin(tiltOptions.tiltLeftAnalogLeftPin, doc, "tiltLeftAnalogLeftPin");
@@ -1414,7 +1427,15 @@ std::string getAddonOptions()
 
 		const TiltOptions& tiltOptions = Storage::getInstance().getAddonOptions().tiltOptions;
 	writeDoc(doc, "tilt1Pin", cleanPin(tiltOptions.tilt1Pin));
+	writeDoc(doc, "factorTilt1LeftX", tiltOptions.factorTilt1LeftX);
+	writeDoc(doc, "factorTilt1LeftY", tiltOptions.factorTilt1LeftY);
+	writeDoc(doc, "factorTilt1RightX", tiltOptions.factorTilt1RightX);
+	writeDoc(doc, "factorTilt1RightY", tiltOptions.factorTilt1RightY);
 	writeDoc(doc, "tilt2Pin", cleanPin(tiltOptions.tilt2Pin));
+	writeDoc(doc, "factorTilt2LeftX", tiltOptions.factorTilt2LeftX);
+	writeDoc(doc, "factorTilt2LeftY", tiltOptions.factorTilt2LeftY);
+	writeDoc(doc, "factorTilt2RightX", tiltOptions.factorTilt2RightX);
+	writeDoc(doc, "factorTilt2RightY", tiltOptions.factorTilt2RightY);
 	writeDoc(doc, "tiltLeftAnalogUpPin", cleanPin(tiltOptions.tiltLeftAnalogUpPin));
 	writeDoc(doc, "tiltLeftAnalogDownPin", cleanPin(tiltOptions.tiltLeftAnalogDownPin));
 	writeDoc(doc, "tiltLeftAnalogLeftPin", cleanPin(tiltOptions.tiltLeftAnalogLeftPin));

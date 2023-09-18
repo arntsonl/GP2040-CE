@@ -69,6 +69,7 @@ app.get('/api/getDisplayOptions', (req, res) => {
 		},
 
 		displaySaverTimeout: 0,
+		turnOffWhenSuspended: 0,
 	};
 	console.log('data', data);
 	return res.send(data);
@@ -192,6 +193,7 @@ app.get('/api/getLedOptions', (req, res) => {
 		pledPin3: 14,
 		pledPin4: 15,
 		pledColor: 65280,
+		turnOffWhenSuspended: 0,
 	});
 });
 
@@ -381,7 +383,15 @@ app.get('/api/getAddonsOptions', (req, res) => {
 		dualDirCombineMode: 0,
 		dualDirFourWayMode: 0,
 		tilt1Pin: -1,
+		factorTilt1LeftX: -1,
+		factorTilt1LeftY: -1,
+		factorTilt1RightX: -1,
+		factorTilt1RightY: -1,
 		tilt2Pin: -1,
+		factorTilt2LeftX: -1,
+		factorTilt2LeftY: -1,
+		factorTilt2RightX: -1,
+		factorTilt2RightY: -1,
 		tiltLeftAnalogUpPin: -1,
 		tiltLeftAnalogDownPin: -1,
 		tiltLeftAnalogLeftPin: -1,
