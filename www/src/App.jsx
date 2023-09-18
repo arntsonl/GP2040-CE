@@ -13,6 +13,7 @@ import ResetSettingsPage from './Pages/ResetSettingsPage';
 import SettingsPage from './Pages/SettingsPage';
 import DisplayConfigPage from './Pages/DisplayConfig';
 import LEDConfigPage from './Pages/LEDConfigPage';
+import LEDReconfigPage from './Pages/LEDReconfigPage';
 import CustomThemePage from './Pages/CustomThemePage';
 import AddonsConfigPage from './Pages/AddonsConfigPage';
 import BackupPage from './Pages/BackupPage';
@@ -35,6 +36,7 @@ const App = () => {
 						<Route path="/profile-settings" element={<ProfileSettingsPage />} />
 						<Route path="/reset-settings" element={<ResetSettingsPage />} />
 						<Route path="/led-config" element={<LEDConfigPage />} />
+						<Route path="/led-reconfig" element={<LEDReconfigPage />} />
 						<Route path="/custom-theme" element={<CustomThemePage />} />
 						<Route path="/display-config" element={<DisplayConfigPage />} />
 						<Route path="/add-ons" element={<AddonsConfigPage />} />

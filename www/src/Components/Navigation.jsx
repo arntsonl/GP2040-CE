@@ -85,6 +85,9 @@ const Navigation = (props) => {
 						<NavDropdown.Item as={NavLink} exact="true" to="/led-config">
 							{t('Navigation:led-config-label')}
 						</NavDropdown.Item>
+						<NavDropdown.Item as={NavLink} exact="true" to="/led-reconfig">
+							LED Reconfig
+						</NavDropdown.Item>
 						<NavDropdown.Item as={NavLink} exact="true" to="/custom-theme">
 							{t('Navigation:custom-theme-label')}
 						</NavDropdown.Item>
