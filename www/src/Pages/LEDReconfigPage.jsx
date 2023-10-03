@@ -24,6 +24,28 @@ const GROUP_TYPES = [
     { label: 'Case LEDs', value: 4 },
 ];
 
+const LIGHTING_EFFECTS = [
+    { label: 'Solid', value: 0 },
+	{ label: 'Fade', value: 1 },
+	{ label: 'Single Chase', value: 2 },
+    { label: 'Movie Chase', value: 3 },
+    { label: 'Visor', value: 4 },
+    { label: 'Twinkle', value: 5 },
+];
+
+const COLOR_EFFECTS = [
+    { label: 'Single', value: 0 },
+    { label: 'Rainbow', value: 1 },
+	{ label: 'Theme', value: 2 },
+
+];
+
+const THEME_EFFECTS = [
+    { label: 'Single', value: 0 },
+	{ label: 'Custom Theme', value: 1 },
+	{ label: 'Rainbow', value: 2 },
+];
+
 const LED_FORMATS = [
 	{ label: 'GRB', value: 0 },
 	{ label: 'RGB', value: 1 },
@@ -215,108 +237,238 @@ export default function LEDReconfigPage() {
                                             />
                                         </Row>
                                     </Section>
+                                    <Button type="submit">{t('Common:button-save-label')}</Button>
                                 </Tab.Pane>
                                 <Tab.Pane eventKey="groups">
                                     <Section title="Group Configuration">
                                         <Tab.Container id="list-group-tabs-example" defaultActiveKey="#link1">
                                             <Row>
-                                                <Row>
-                                                    <FormSelect
-                                                        label="Group Selected"
-                                                        name="gorupSelected"
-                                                        className="form-select-sm"
-                                                        groupClassName="col-sm-4 mb-3"
-                                                        value={values.ledFormat}
-                                                        error={errors.ledFormat}
-                                                        isInvalid={errors.ledFormat}
-                                                        onChange={handleChange}
-                                                    >
-                                                        {[1,2,3,4,5].map((o, i) => (
-                                                            <option key={`ledGroupNum-option-${o}`} value={o}>
-                                                                {o}
-                                                            </option>
-                                                        ))}
-                                                    </FormSelect>
-                                                    <FormSelect
-                                                        label="Group Type"
-                                                        name="groupType"
-                                                        className="form-select-sm"
-                                                        groupClassName="col-sm-4 mb-3"
-                                                        value={values.ledFormat}
-                                                        error={errors.ledFormat}
-                                                        isInvalid={errors.ledFormat}
-                                                        onChange={handleChange}
-                                                    >
-                                                        {GROUP_TYPES.map((o, i) => (
-                                                            <option key={`ledGroupType-option-${i}`} value={o.value}>
-                                                                {o.label}
-                                                            </option>
-                                                        ))}
-                                                    </FormSelect>
-                                                </Row>
-                                                <Row>
-                                                    <FormControl
-                                                        type="number"
-                                                        label="Index LED Start"
-                                                        name="dataPin"
-                                                        className="form-control-sm"
-                                                        groupClassName="col-sm-4 mb-3"
-                                                        value={values.dataPin}
-                                                        error={errors.dataPin}
-                                                        isInvalid={errors.dataPin}
-                                                        onChange={handleChange}
-                                                        min={-1}
-                                                        max={29}
+                                                <FormSelect
+                                                    label="Group Selected"
+                                                    name="gorupSelected"
+                                                    className="form-select-sm"
+                                                    groupClassName="col-sm-4 mb-3"
+                                                    value={values.ledFormat}
+                                                    error={errors.ledFormat}
+                                                    isInvalid={errors.ledFormat}
+                                                    onChange={handleChange}
+                                                >
+                                                    {[1,2,3,4,5].map((o, i) => (
+                                                        <option key={`ledGroupNum-option-${o}`} value={o}>
+                                                            {o}
+                                                        </option>
+                                                    ))}
+                                                </FormSelect>
+                                                <FormSelect
+                                                    label="Group Type"
+                                                    name="groupType"
+                                                    className="form-select-sm"
+                                                    groupClassName="col-sm-4 mb-3"
+                                                    value={values.ledFormat}
+                                                    error={errors.ledFormat}
+                                                    isInvalid={errors.ledFormat}
+                                                    onChange={handleChange}
+                                                >
+                                                    {GROUP_TYPES.map((o, i) => (
+                                                        <option key={`ledGroupType-option-${i}`} value={o.value}>
+                                                            {o.label}
+                                                        </option>
+                                                    ))}
+                                                </FormSelect>
+                                                <FormControl
+                                                    type="number"
+                                                    label="LEDs Per Object"
+                                                    name="dataPin"
+                                                    className="form-control-sm"
+                                                    groupClassName="col-sm-4 mb-3"
+                                                    value={values.dataPin}
+                                                    error={errors.dataPin}
+                                                    isInvalid={errors.dataPin}
+                                                    onChange={handleChange}
+                                                    min={-1}
+                                                    max={29}
+                                                />
+                                            </Row>
+                                            <Row>
+                                                <FormControl
+                                                    type="number"
+                                                    label="Index LED Start"
+                                                    name="dataPin"
+                                                    className="form-control-sm"
+                                                    groupClassName="col-sm-4 mb-3"
+                                                    value={values.dataPin}
+                                                    error={errors.dataPin}
+                                                    isInvalid={errors.dataPin}
+                                                    onChange={handleChange}
+                                                    min={-1}
+                                                    max={29}
+                                                />
+                                                <FormControl
+                                                    type="number"
+                                                    label="Index LED End"
+                                                    name="dataPin"
+                                                    className="form-control-sm"
+                                                    groupClassName="col-sm-4 mb-3"
+                                                    value={values.dataPin}
+                                                    error={errors.dataPin}
+                                                    isInvalid={errors.dataPin}
+                                                    onChange={handleChange}
+                                                    min={-1}
+                                                    max={29}
+                                                    disabled
+                                                />
+                                                <FormControl
+                                                    type="number"
+                                                    label="Number of Objects"
+                                                    name="brightnessSteps"
+                                                    className="form-control-sm"
+                                                    groupClassName="col-sm-4 mb-2"
+                                                    value={values.brightnessSteps}
+                                                    error={errors.brightnessSteps}
+                                                    isInvalid={errors.brightnessSteps}
+                                                    onChange={handleChange}
+                                                    min={1}
+                                                    max={10}
+                                                />
+                                            </Row>
+                                            <Button className="form-control-sm"
+                                                groupClassName="col-sm-4 mb-2"
+                                                type="button">
+                                                    Edit Order
+                                            </Button>
+                                        </Tab.Container>
+                                    </Section>
+                                    <Button type="submit">{t('Common:button-save-label')}</Button>
+                                </Tab.Pane>
+                                <Tab.Pane eventKey="effects">
+                                    <Section title="Lighting Effects">
+                                        <Tab.Container id="list-group-tabs-example" defaultActiveKey="#link1">
+                                            <Row>
+                                                <FormSelect
+                                                    label="Group Selected"
+                                                    name="gorupSelected"
+                                                    className="form-select-sm"
+                                                    groupClassName="col-sm-4 mb-3"
+                                                    value={values.ledFormat}
+                                                    error={errors.ledFormat}
+                                                    isInvalid={errors.ledFormat}
+                                                    onChange={handleChange}
+                                                >
+                                                    {[1,2,3,4,5].map((o, i) => (
+                                                        <option key={`ledGroupNum-option-${o}`} value={o}>
+                                                            {o}
+                                                        </option>
+                                                    ))}
+                                                </FormSelect>
+                                                <FormSelect
+                                                    label="Group Type"
+                                                    name="groupType"
+                                                    className="form-select-sm"
+                                                    groupClassName="col-sm-4 mb-3"
+                                                    value={values.ledFormat}
+                                                    error={errors.ledFormat}
+                                                    isInvalid={errors.ledFormat}
+                                                    onChange={handleChange}
+                                                    disabled
+                                                >
+                                                    {GROUP_TYPES.map((o, i) => (
+                                                        <option key={`ledGroupType-option-${i}`} value={o.value}>
+                                                            {o.label}
+                                                        </option>
+                                                    ))}
+                                                </FormSelect>
+                                                <Form.Group className="col-sm-4 mb-3" controlId="formBasicEmail">
+                                                    <Form.Label>Does Not React</Form.Label>
+                                                    <Form.Check 
+                                                        label="Enabled"                                                       
+                                                        type="switch"
+                                                        id="custom-switch"
+                                                        name="switchReverse"
+                                                        className="col-sm-4 mb-3"
+                                                        isInvalid={false}
+                                                        onChange={(e) => {
+                                                        }}
                                                     />
-                                                    <FormControl
-                                                        type="number"
-                                                        label="Index LED End"
-                                                        name="dataPin"
-                                                        className="form-control-sm"
-                                                        groupClassName="col-sm-4 mb-3"
-                                                        value={values.dataPin}
-                                                        error={errors.dataPin}
-                                                        isInvalid={errors.dataPin}
-                                                        onChange={handleChange}
-                                                        min={-1}
-                                                        max={29}
-                                                        disabled
+                                                </Form.Group>
+                                            </Row>
+                                            <Row>
+                                                <FormSelect
+                                                    label="Lighting Effect"
+                                                    name="lightingSelected"
+                                                    className="form-select-sm"
+                                                    groupClassName="col-sm-4 mb-3"
+                                                >
+                                                    {LIGHTING_EFFECTS.map((o, i) => (
+                                                        <option key={`ledEffectsType-option-${i}`} value={o.value}>
+                                                            {o.label}
+                                                        </option>
+                                                    ))}
+                                                </FormSelect>
+                                                <FormSelect
+                                                    label="Color Type"
+                                                    name="colorSelected"
+                                                    className="form-select-sm"
+                                                    groupClassName="col-sm-4 mb-3"
+                                                >
+                                                    {COLOR_EFFECTS.map((o, i) => (
+                                                        <option key={`colorEffectsType-option-${i}`} value={o.value}>
+                                                            {o.label}
+                                                        </option>
+                                                    ))}
+                                                </FormSelect>
+                                                <Form.Group className="col-sm-4 mb-3" controlId="formBasicEmail">
+                                                    <Form.Label htmlFor="exampleColorInput">Color Selection</Form.Label>
+                                                    <Form.Group className="mx-4" controlId="formBasicEmail">
+                                                        <Form.Control
+                                                            type="color"
+                                                            id="exampleColorInput"
+                                                            defaultValue="#563d7c"
+                                                            title="Choose your color"
+                                                        />
+                                                    </Form.Group>
+                                                </Form.Group>
+                                            </Row>
+                                            <Row>
+                                                <FormControl
+                                                    type="number"
+                                                    label="Effect Speed"
+                                                    name="effectSpeed"
+                                                    className="form-control-sm"
+                                                    groupClassName="col-sm-4 mb-3"
+                                                    value={15}
+                                                    min={1}
+                                                    max={30}
+                                                />
+                                                <Form.Group className="col-sm-4 mb-3" controlId="formBasicEmail">
+                                                    <Form.Label>Lock Speed</Form.Label>
+                                                    <Form.Check 
+                                                        label="Enabled"                                                       
+                                                        type="switch"
+                                                        id="custom-switch"
+                                                        name="switchReverse"
+                                                        className="col-sm-4 mb-3"
+                                                        isInvalid={false}
+                                                        onChange={(e) => {
+                                                        }}
                                                     />
-                                                </Row>
-                                                <Row>
-                                                    <FormControl
-                                                        type="number"
-                                                        label="Number of Objects"
-                                                        name="brightnessSteps"
-                                                        className="form-control-sm"
-                                                        groupClassName="col-sm-4 mb-2"
-                                                        value={values.brightnessSteps}
-                                                        error={errors.brightnessSteps}
-                                                        isInvalid={errors.brightnessSteps}
-                                                        onChange={handleChange}
-                                                        min={1}
-                                                        max={10}
+                                                </Form.Group>
+                                                <Form.Group className="col-sm-4 mb-3" controlId="formBasicEmail">
+                                                    <Form.Label>Reverse Effect</Form.Label>
+                                                    <Form.Check 
+                                                        label="Enabled"                                                       
+                                                        type="switch"
+                                                        id="custom-switch"
+                                                        name="switchReverse"
+                                                        className="col-sm-4 mb-3"
+                                                        isInvalid={false}
+                                                        onChange={(e) => {
+                                                        }}
                                                     />
-                                                    <FormControl
-                                                        type="number"
-                                                        label="LEDs Per Object"
-                                                        name="dataPin"
-                                                        className="form-control-sm"
-                                                        groupClassName="col-sm-4 mb-3"
-                                                        value={values.dataPin}
-                                                        error={errors.dataPin}
-                                                        isInvalid={errors.dataPin}
-                                                        onChange={handleChange}
-                                                        min={-1}
-                                                        max={29}
-                                                    />
-                                                </Row>
+                                                </Form.Group>
                                             </Row>
                                         </Tab.Container>
                                     </Section>
-                                    <Row>
-                                        
-                                    </Row>
+                                    <Button type="submit">{t('Common:button-save-label')}</Button>
                                 </Tab.Pane>
                                 <Tab.Pane eventKey="turboleds">
                                     <div id="Turbo LED">
