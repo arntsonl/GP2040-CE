@@ -201,12 +201,12 @@ void Gamepad::process()
 			state.dpad |= mapDpadUp->buttonMask;
 	}
 
-	state.dpad = runSOCDCleaner(resolveSOCDMode(options), state.dpad);
-
-	// SOCD cleaning first, allows for control over which diagonal to take/filter
+	// 4-way before SOCD, might have better history without losing any coherent functionality
 	if (options.fourWayMode) {
 		state.dpad = filterToFourWayMode(state.dpad);
 	}
+
+	state.dpad = runSOCDCleaner(resolveSOCDMode(options), state.dpad);
 
 	switch (options.dpadMode)
 	{
@@ -563,8 +563,8 @@ XInputReport *Gamepad::getXInputReport()
 
 	if (hasAnalogTriggers)
 	{
-		xinputReport.lt = state.lt;
-		xinputReport.rt = state.rt;
+		xinputReport.lt = pressedL2() ? 0xFF : state.lt;
+		xinputReport.rt = pressedR2() ? 0xFF : state.rt;
 	}
 	else
 	{
@@ -605,6 +605,10 @@ PS4Report *Gamepad::getPS4Report()
 	ps4Report.button_r3       = pressedR3();
 	ps4Report.button_home     = pressedA1();
 	ps4Report.button_touchpad = options.switchTpShareForDs4 ? pressedS1() : pressedA2();
+
+	// report counter is 6 bits
+	last_report_counter = (last_report_counter+1) & 63;
+	ps4Report.report_counter = last_report_counter;
 
 	ps4Report.left_stick_x = static_cast<uint8_t>(state.lx >> 8);
 	ps4Report.left_stick_y = static_cast<uint8_t>(state.ly >> 8);

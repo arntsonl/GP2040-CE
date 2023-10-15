@@ -56,7 +56,7 @@ GP2040-CE is compatible with a number of systems and input modes. To change the 
 |:----------------|:-----------------------------------------:|
 | Nintendo Switch | <hotkey v-bind:buttons='["B1"]'></hotkey> |
 | XInput          | <hotkey v-bind:buttons='["B2"]'></hotkey> |
-| DirectInput/PS3 | <hotkey v-bind:buttons='["B2"]'></hotkey> |
+| DirectInput/PS3 | <hotkey v-bind:buttons='["B3"]'></hotkey> |
 | PS4             | <hotkey v-bind:buttons='["B4"]'></hotkey> |
 | Keyboard        | <hotkey v-bind:buttons='["R2"]'></hotkey> |
 
@@ -64,7 +64,7 @@ GP2040-CE is compatible with a number of systems and input modes. To change the 
 
 ## Hotkeys
 
-A number of useful hotkeys exist that change the functionality of GP2040 without needing to access the Web Configurator. Commonly used hotkeys include changing the directions to emulate a digital DPad, Left Analog Stick, Right Analog Stick or to change [Simultaneous Opposite Cardinal Direction (SOCD)](https://glossary.infil.net/?t=SOC) cleaning modes. Different SOCD cleaning modes will ensure the controller obeys certain directional input rules when sending inputs to the computer or game console. 
+A number of useful hotkeys exist that change the functionality of GP2040 without needing to access the Web Configurator. Commonly used hotkeys include changing the directions to emulate a digital DPad, Left Analog Stick, Right Analog Stick or to change [Simultaneous Opposite Cardinal Direction (SOCD)](https://glossary.infil.net/?t=SOCD) cleaning modes. Different SOCD cleaning modes will ensure the controller obeys certain directional input rules when sending inputs to the computer or game console. 
 
 A number of hotkeys are enabled by default and if you are encountering issues with unexpected behavior on your controller, verify that you did not accidentally trigger a hotkey.
 
@@ -83,4 +83,4 @@ A number of hotkeys are enabled by default and if you are encountering issues wi
 
 ## Add-Ons and Additional Features
 
-There are a number of add-ons that expand the functionality of GP2040-CE, such as [analog stick emulation](add-ons#analog) and [turbo functions](add-ons#turbo). Due to the large number of add-ons created by the community, they are located in a separate documentation page. Navigate to [Add-Ons page](add-ons) for more information on the individual add-ons.
+There are a number of add-ons that expand the functionality of GP2040-CE, such as [analog stick emulation](add-ons/analog) and [turbo functions](add-ons/turbo). Due to the large number of add-ons created by the community, they are located in a separate documentation page. Navigate to [Add-Ons page](add-ons) for more information on the individual add-ons.

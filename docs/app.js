@@ -166,9 +166,13 @@ window.$docsify = {
 		hideOtherSidebarContent: false,
 	},
 	logo: 'assets/images/gp2040-ce-logo.png',
-	loadSidebar: '_sidebar.md',
+	loadSidebar: true,
+	alias: {
+		'/.*/_sidebar.md': '/_sidebar.md',
+	  },
 	auto2top: true,
-	subMaxLevel: 3,
+	subMaxLevel: 1,
+	sidebarDisplayLevel: 3, // set sidebar display level
 	externalLinkTarget: '_self',
 	cornerExternalLinkTarget: '_self',
 	themeable: {
@@ -429,5 +433,13 @@ window.$docsify = {
 		theme      : 'classic', // default
 		tabComments: true,      // default
 		tabHeadings: true       // default
-	  }
+	},
+	toc: {
+		tocMaxLevel: 6,
+		target: 'h2, h3, h4, h5, h6',
+		ignoreHeaders:  ['<!-- {docsify-ignore} -->', '<!-- {docsify-ignore-all} -->']
+		// scope: '.markdown-section',
+    	// headings: 'h1, h2, h3, h4, h5, h6',
+    	// title: 'Table of Contents',
+	}
 };

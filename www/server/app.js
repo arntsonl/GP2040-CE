@@ -458,6 +458,7 @@ app.get('/api/getAddonsOptions', (req, res) => {
 		FocusModeAddonEnabled: 1,
 		focusModeOledLockEnabled: 0,
 		focusModeRgbLockEnabled: 0,
+		focusModeMacroLockEnabled: 0,
 		BuzzerSpeakerAddonEnabled: 1,
 		BootselButtonAddonEnabled: 1,
 		DualDirectionalInputEnabled: 1,
@@ -474,6 +475,29 @@ app.get('/api/getAddonsOptions', (req, res) => {
 		WiiExtensionAddonEnabled: 1,
 		SNESpadAddonEnabled: 1,
 		PSPassthroughAddonEnabled: 1,
+		usedPins: Object.values(picoController),
+	});
+});
+
+app.get('/api/getMacroAddonOptions', (req, res) => {
+	return res.send({
+		macroList: [
+			{
+				enabled: 1,
+				exclusive: 1,
+				interruptible: 1,
+				showFrames: 1,
+				macroType: 1,
+				useMacroTriggerButton: 0,
+				macroTriggerPin: -1,
+				macroTriggerButton: 0,
+				macroLabel: "Shoryuken",
+				macroInputs: [{ buttonMask: 1 << 19, duration: 16666, waitDuration: 0 }, { buttonMask: 1 << 17, duration: 16666, waitDuration: 0 }, { buttonMask: 1 << 17 | 1 << 19 | 1 << 3, duration: 16666, waitDuration: 0 }]
+			}
+		],
+		macroPin: -1,
+		macroBoardLedEnabled: 1,
+		InputMacroAddonEnabled: 1,
 		usedPins: Object.values(picoController),
 	});
 });
