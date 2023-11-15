@@ -4,6 +4,10 @@
 #include "../helper.h"
 #include "../types.h"
 
+#ifndef LED_TOTAL_COUNT
+#define LED_TOTAL_COUNT 30
+#endif
+
 #define MAX_LIGHTING_GROUPS 5
 
 #include "lighting_group.h"

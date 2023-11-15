@@ -145,9 +145,7 @@ src/addons/keyboard_host.cpp
 src/addons/i2canalog1219.cpp
 src/addons/jslider.cpp
 src/addons/i2cdisplay.cpp
-src/addons/neopicoleds.cpp
 src/addons/playernum.cpp
-src/addons/playerleds.cpp
 src/addons/ps4mode.cpp
 src/addons/pspassthrough.cpp
 src/addons/reverse.cpp
@@ -174,7 +172,6 @@ pico_stdlib
 pico_bootsel_via_double_reset
 tinyusb_host
 tinyusb_pico_pio_usb
-AnimationStation
 CRC32
 FlashPROM
 ADS1219

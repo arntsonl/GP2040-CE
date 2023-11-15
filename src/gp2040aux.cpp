@@ -9,10 +9,10 @@
 #include "addons/board_led.h"
 #include "addons/buzzerspeaker.h"
 #include "addons/i2cdisplay.h" // Add-Ons
-#include "addons/pleds.h"
+//#include "addons/pleds.h"
 #include "addons/ps4mode.h"
 #include "addons/pspassthrough.h"
-#include "addons/neopicoleds.h"
+//#include "addons/neopicoleds.h"
 
 #include "lighting/lighting_base.h"
 

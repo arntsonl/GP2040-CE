@@ -4,7 +4,6 @@
 
 #include "storagemanager.h"
 #include "configmanager.h"
-#include "AnimationStorage.hpp"
 #include "system.h"
 #include "config_utils.h"
 #include "types.h"
@@ -731,7 +730,7 @@ std::string getLedOptions()
 	writeDoc(doc, "pledPin2", ledOptions.pledPin2);
 	writeDoc(doc, "pledPin3", ledOptions.pledPin3);
 	writeDoc(doc, "pledPin4", ledOptions.pledPin4);
-	writeDoc(doc, "pledColor", ((RGB)ledOptions.pledColor).value(LED_FORMAT_RGB));
+	writeDoc(doc, "pledColor", ((uint32_t)ledOptions.pledColor));
 
 	return serialize_json(doc);
 }
@@ -740,7 +739,7 @@ std::string setCustomTheme()
 {
 	DynamicJsonDocument doc = get_post_data();
 
-	AnimationOptions options = AnimationStation::options;
+	CustomThemeOptions & options = Storage::getInstance().getCustomThemeOptions();
 
 	const auto readDocDefaultToZero = [&](const char* key0, const char* key1) -> uint32_t
 	{
@@ -752,7 +751,7 @@ std::string setCustomTheme()
 		return result;
 	};
 
-	readDoc(options.hasCustomTheme, doc, "enabled");
+//	readDoc(options.hasCustomTheme, doc, "enabled");
 	options.customThemeUp 			= readDocDefaultToZero("Up", "u");
 	options.customThemeDown 		= readDocDefaultToZero("Down", "u");
 	options.customThemeLeft			= readDocDefaultToZero("Left", "u");
@@ -790,8 +789,7 @@ std::string setCustomTheme()
 	options.customThemeA1Pressed	= readDocDefaultToZero("A1", "d");
 	options.customThemeA2Pressed	= readDocDefaultToZero("A2", "d");
 
-	AnimationStation::SetOptions(options);
-	AnimationStore.save();
+	Storage::getInstance().save();
 
 	return serialize_json(doc);
 }
@@ -799,9 +797,10 @@ std::string setCustomTheme()
 std::string getCustomTheme()
 {
 	DynamicJsonDocument doc(LWIP_HTTPD_POST_MAX_PAYLOAD_LEN);
-	const AnimationOptions& options = AnimationStation::options;
+	
+	CustomThemeOptions & options = Storage::getInstance().getCustomThemeOptions();
 
-	writeDoc(doc, "enabled", options.hasCustomTheme);
+	writeDoc(doc, "enabled", true);
 	writeDoc(doc, "Up", "u", options.customThemeUp);
 	writeDoc(doc, "Up", "d", options.customThemeUpPressed);
 	writeDoc(doc, "Down", "u", options.customThemeDown);

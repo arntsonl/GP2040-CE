@@ -4,6 +4,8 @@
 #include "CRC32.h"
 #include "helper.h"
 
+#include "NeoPico.hpp"
+
 #include "config.pb.h"
 #include "GamepadState.h"
 
@@ -19,6 +21,61 @@ const size_t SPLASH_IMAGE_STORAGE_INDEX = 6144; // 1032 bytes for Display Config
 
 const uint32_t CHECKSUM_MAGIC   = 0;
 const uint32_t NOCHECKSUM_MAGIC = 0xDEADBEEF;   // No checksum CRC;
+
+// Removing AnimationStation requires this
+struct RGB {
+  // defaults allows trivial constructor, avoiding compiler complaints and avoiding unnessecary initialization
+  // animation always memsets the frame before use, to this is safe.
+  RGB() = default; 
+  RGB(const RGB&) = default;
+  constexpr RGB(uint8_t r, uint8_t g, uint8_t b) : r(r), g(g), b(b), w(0) {}
+  constexpr RGB(uint8_t r, uint8_t g, uint8_t b, uint8_t w)
+    : r(r), g(g), b(b), w(w) { }
+  RGB(uint32_t c)
+    : r((c >> 16) & 255), g((c >> 8) & 255), b((c >> 0) & 255) { }
+  uint8_t r;
+  uint8_t g;
+  uint8_t b;
+  uint8_t w;
+  inline uint32_t value(LEDFormat format, float brightnessX = 1.0F) const {
+    switch (format) {
+      case LED_FORMAT_GRB:
+        return ((uint32_t)(g * brightnessX) << 16)
+            | ((uint32_t)(r * brightnessX) << 8)
+            | (uint32_t)(b * brightnessX);
+
+      case LED_FORMAT_RGB:
+        return ((uint32_t)(r * brightnessX) << 16)
+            | ((uint32_t)(g * brightnessX) << 8)
+            | (uint32_t)(b * brightnessX);
+
+      case LED_FORMAT_GRBW:
+      {
+        if ((r == g) && (r == b))
+          return (uint32_t)(r * brightnessX);
+
+        return ((uint32_t)(g * brightnessX) << 24)
+            | ((uint32_t)(r * brightnessX) << 16)
+            | ((uint32_t)(b * brightnessX) << 8)
+            | (uint32_t)(w * brightnessX);
+      }
+
+      case LED_FORMAT_RGBW:
+      {
+        if ((r == g) && (r == b))
+          return (uint32_t)(r * brightnessX);
+
+        return ((uint32_t)(r * brightnessX) << 24)
+            | ((uint32_t)(g * brightnessX) << 16)
+            | ((uint32_t)(b * brightnessX) << 8)
+            | (uint32_t)(w * brightnessX);
+      }
+    }
+
+    assert(false);
+    return 0;
+  }
+};
 
 // !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
 // Do not change the structs or enums in the ConfigLegacy namespace!

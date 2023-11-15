@@ -2,7 +2,6 @@
 
 #include "addonmanager.h"
 #include "configs/webconfig.h"
-#include "addons/neopicoleds.h"
 
 void ConfigManager::setup(ConfigType config) {
 	if (config == CONFIG_TYPE_WEB)

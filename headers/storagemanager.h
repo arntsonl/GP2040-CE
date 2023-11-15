@@ -43,7 +43,7 @@ public:
 	DisplayOptions& getPreviewDisplayOptions() { return previewDisplayOptions; }
 	LEDOptions& getLedOptions() { return config.ledOptions; }
 	AddonOptions& getAddonOptions() { return config.addonOptions; }
-	AnimationOptions_Proto& getAnimationOptions() { return config.animationOptions; }
+	CustomThemeOptions& getCustomThemeOptions() { return config.customThemeOptions; }
 	ProfileOptions& getProfileOptions() { return config.profileOptions; }
 	GpioAction* getProfilePinMappings() { return functionalPinMappings; }
 
@@ -51,8 +51,6 @@ public:
 
 	// Perform saves that were enqueued from core1
 	void performEnqueuedSaves();
-
-	void enqueueAnimationOptionsSave(const AnimationOptions& animationOptions);
 
 	void SetConfigMode(bool); 			// Config Mode (on-boot)
 	bool GetConfigMode();
@@ -80,10 +78,6 @@ private:
 	uint8_t featureData[32]; // USB X-Input Feature Data
 	DisplayOptions previewDisplayOptions;
 	Config config;
-	std::atomic<bool> animationOptionsSavePending;
-	critical_section_t animationOptionsCs;
-	uint32_t animationOptionsCrc = 0;
-	AnimationOptions animationOptionsToSave = {};
 	GpioAction functionalPinMappings[NUM_BANK0_GPIOS];
 	GpioAction* gpioMappingsArray[NUM_BANK0_GPIOS];
 };

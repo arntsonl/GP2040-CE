@@ -21,9 +21,7 @@
 #include "addons/i2cdisplay.h"
 #include "addons/jslider.h"
 #include "addons/keyboard_host.h"
-#include "addons/neopicoleds.h"
 #include "addons/playernum.h"
-#include "addons/pleds.h"
 #include "addons/ps4mode.h"
 #include "addons/pspassthrough.h"
 #include "addons/reverse.h"
@@ -263,6 +261,53 @@ void ConfigUtils::initUnsetPropertiesWithDefaults(Config& config)
     INIT_UNSET_PROPERTY(config.profileOptions.alternativePinMappings[2], pinDpadRight, PIN_DPAD_RIGHT);
     config.profileOptions.alternativePinMappings_count = 3;
 
+    // Lighting Options
+    INIT_UNSET_PROPERTY(config.lightOptions, dataPin, BOARD_LEDS_PIN);
+    INIT_UNSET_PROPERTY(config.lightOptions, ledFormat, static_cast<LEDFormat_Proto>(LED_FORMAT));
+    INIT_UNSET_PROPERTY(config.lightOptions, maxBrightness, LED_BRIGHTNESS_MAXIMUM);
+    INIT_UNSET_PROPERTY(config.lightOptions, brightnessSteps, LED_BRIGHTNESS_STEPS);
+    INIT_UNSET_PROPERTY(config.lightOptions, totalCount, 30); // temp
+    INIT_UNSET_PROPERTY(config.lightOptions, turnOffWhenSuspended, true);
+
+    // Custom Theme
+    INIT_UNSET_PROPERTY(config.customThemeOptions, customThemeUp, 0);
+    INIT_UNSET_PROPERTY(config.customThemeOptions, customThemeDown, 0);
+    INIT_UNSET_PROPERTY(config.customThemeOptions, customThemeLeft, 0);
+    INIT_UNSET_PROPERTY(config.customThemeOptions, customThemeRight, 0);
+    INIT_UNSET_PROPERTY(config.customThemeOptions, customThemeB1, 0);
+    INIT_UNSET_PROPERTY(config.customThemeOptions, customThemeB2, 0);
+    INIT_UNSET_PROPERTY(config.customThemeOptions, customThemeB3, 0);
+    INIT_UNSET_PROPERTY(config.customThemeOptions, customThemeB4, 0);
+    INIT_UNSET_PROPERTY(config.customThemeOptions, customThemeL1, 0);
+    INIT_UNSET_PROPERTY(config.customThemeOptions, customThemeR1, 0);
+    INIT_UNSET_PROPERTY(config.customThemeOptions, customThemeL2, 0);
+    INIT_UNSET_PROPERTY(config.customThemeOptions, customThemeR2, 0);
+    INIT_UNSET_PROPERTY(config.customThemeOptions, customThemeS1, 0);
+    INIT_UNSET_PROPERTY(config.customThemeOptions, customThemeS2, 0);
+    INIT_UNSET_PROPERTY(config.customThemeOptions, customThemeL3, 0);
+    INIT_UNSET_PROPERTY(config.customThemeOptions, customThemeR3, 0);
+    INIT_UNSET_PROPERTY(config.customThemeOptions, customThemeA1, 0);
+    INIT_UNSET_PROPERTY(config.customThemeOptions, customThemeA2, 0);
+    INIT_UNSET_PROPERTY(config.customThemeOptions, customThemeUpPressed, 0);
+    INIT_UNSET_PROPERTY(config.customThemeOptions, customThemeDownPressed, 0);
+    INIT_UNSET_PROPERTY(config.customThemeOptions, customThemeLeftPressed, 0);
+    INIT_UNSET_PROPERTY(config.customThemeOptions, customThemeRightPressed, 0);
+    INIT_UNSET_PROPERTY(config.customThemeOptions, customThemeB1Pressed, 0);
+    INIT_UNSET_PROPERTY(config.customThemeOptions, customThemeB2Pressed, 0);
+    INIT_UNSET_PROPERTY(config.customThemeOptions, customThemeB3Pressed, 0);
+    INIT_UNSET_PROPERTY(config.customThemeOptions, customThemeB4Pressed, 0);
+    INIT_UNSET_PROPERTY(config.customThemeOptions, customThemeL1Pressed, 0);
+    INIT_UNSET_PROPERTY(config.customThemeOptions, customThemeR1Pressed, 0);
+    INIT_UNSET_PROPERTY(config.customThemeOptions, customThemeL2Pressed, 0);
+    INIT_UNSET_PROPERTY(config.customThemeOptions, customThemeR2Pressed, 0);
+    INIT_UNSET_PROPERTY(config.customThemeOptions, customThemeS1Pressed, 0);
+    INIT_UNSET_PROPERTY(config.customThemeOptions, customThemeS2Pressed, 0);
+    INIT_UNSET_PROPERTY(config.customThemeOptions, customThemeL3Pressed, 0);
+    INIT_UNSET_PROPERTY(config.customThemeOptions, customThemeR3Pressed, 0);
+    INIT_UNSET_PROPERTY(config.customThemeOptions, customThemeA1Pressed, 0);
+    INIT_UNSET_PROPERTY(config.customThemeOptions, customThemeA2Pressed, 0);
+
+/*
     // ledOptions
     INIT_UNSET_PROPERTY(config.ledOptions, dataPin, BOARD_LEDS_PIN);
     INIT_UNSET_PROPERTY(config.ledOptions, ledFormat, static_cast<LEDFormat_Proto>(LED_FORMAT));
@@ -270,7 +315,7 @@ void ConfigUtils::initUnsetPropertiesWithDefaults(Config& config)
     INIT_UNSET_PROPERTY(config.ledOptions, ledsPerButton, LEDS_PER_PIXEL);
     INIT_UNSET_PROPERTY(config.ledOptions, brightnessMaximum, LED_BRIGHTNESS_MAXIMUM);
     INIT_UNSET_PROPERTY(config.ledOptions, brightnessSteps, LED_BRIGHTNESS_STEPS);
-    INIT_UNSET_PROPERTY(config.ledOptions, turnOffWhenSuspended, LEDS_TURN_OFF_WHEN_SUSPENDED);
+    INIT_UNSET_PROPERTY(config.ledOptions, turnOffWhenSuspended, true);
 
     INIT_UNSET_PROPERTY(config.ledOptions, indexUp, LEDS_DPAD_UP);
     INIT_UNSET_PROPERTY(config.ledOptions, indexDown, LEDS_DPAD_DOWN);
@@ -343,6 +388,8 @@ void ConfigUtils::initUnsetPropertiesWithDefaults(Config& config)
     INIT_UNSET_PROPERTY(config.animationOptions, customThemeR3Pressed, 0);
     INIT_UNSET_PROPERTY(config.animationOptions, customThemeA1Pressed, 0);
     INIT_UNSET_PROPERTY(config.animationOptions, customThemeA2Pressed, 0);
+
+*/
 
     // addonOptions.bootselButtonOptions
     INIT_UNSET_PROPERTY(config.addonOptions.bootselButtonOptions, enabled, !!BOOTSEL_BUTTON_ENABLED);
