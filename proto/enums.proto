@@ -256,3 +256,56 @@ enum MacroType
     ON_HOLD_REPEAT = 2;
     ON_TOGGLE = 3;
 };
+
+enum PLEDColorType
+{
+    option (nanopb_enumopt).long_names = false;
+    
+    CONSOLE = 0;
+    SINGLE = 1;
+    RAINBOW = 2;
+};
+
+enum LightingGroupType
+{
+    option (nanopb_enumopt).long_names = false;
+
+    NOT_ASSIGNED = 0;
+    STICKLESS_BUTTONS = 1; // Use dpad + buttons order
+    JOYSTICK_ONLY = 2;     // Use dpad-order only
+    BUTTONS_ONLY = 3;      // Use buttons-order only
+    CASE_LIGHTS = 4;       // Don't use any ordering
+}
+
+enum LightingEffectType
+{
+    option (nanopb_enumopt).long_names = false;
+
+    NONE = 0;
+    SOLID = 1;
+    FADE = 2;
+    SINGLE_CHASE = 3;
+    MOVIE_CHASE = 4;
+    VISOR = 5;
+    TWINKLE = 6;
+}
+
+enum LightingReactionType
+{
+    option (nanopb_enumopt).long_names = false;
+
+    NONE = 1;
+    SOLID = 2;
+    RAINBOW = 3;
+    FADE = 4;
+    FADE_RAINBOW = 5;
+}
+
+enum LightingColorType
+{
+    option (nanopb_enumopt).long_names = false;
+
+    SINGLE = 1;
+    RAINBOW = 2;
+    THEME = 3;
+}

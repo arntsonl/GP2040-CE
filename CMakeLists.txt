@@ -159,6 +159,7 @@ src/addons/snes_input.cpp
 src/gamepad/GamepadDebouncer.cpp
 src/gamepad/GamepadDescriptors.cpp
 src/addons/tilt.cpp
+src/lighting/lighting_base.cpp
 ${PROTO_OUTPUT_DIR}/enums.pb.c
 ${PROTO_OUTPUT_DIR}/config.pb.c
 )
@@ -195,6 +196,7 @@ headers
 headers/addons
 headers/configs
 headers/gamepad
+headers/lighting
 configs/${GP2040_BOARDCONFIG}
 ${PROTO_OUTPUT_DIR}
 )

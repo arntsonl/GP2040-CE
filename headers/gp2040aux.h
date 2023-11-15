@@ -10,6 +10,7 @@
 
 #include "gpaddon.h"
 #include "addonmanager.h"
+#include "lighting/lighting_base.h"
 
 class GP2040Aux {
 public:

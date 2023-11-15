@@ -169,7 +169,6 @@ message AlternativePinMappings
 	optional int32 pinDpadRight = 12;
 }
 
-
 message ProfileOptions
 {
 	repeated AlternativePinMappings alternativePinMappings = 1 [(nanopb).max_count = 3];
@@ -238,6 +237,134 @@ message LEDOptions
 	optional uint32 pledColor = 30;
 
 	optional bool turnOffWhenSuspended = 31;
+};
+
+// Index ordering for our inputs
+message LightingInputOrder
+{
+	optional int32 indexUp = 1;
+	optional int32 indexDown = 2;
+	optional int32 indexLeft = 3;
+	optional int32 indexRight = 4;
+	optional int32 indexB1 = 5;
+	optional int32 indexB2 = 6;
+	optional int32 indexB3 = 7;
+	optional int32 indexB4 = 8;
+	optional int32 indexL1 = 9;
+	optional int32 indexR1 = 10;
+	optional int32 indexL2 = 11;
+	optional int32 indexR2 = 12;
+	optional int32 indexS1 = 13;
+	optional int32 indexS2 = 14;
+	optional int32 indexL3 = 15;
+	optional int32 indexR3 = 16;
+	optional int32 indexA1 = 17;
+	optional int32 indexA2 = 18;
+};
+
+// Lighting groups to assign group types to ws2812b index
+message LightingGroup
+{
+	optional int32 ID = 1;
+	optional LightingGroupType groupType = 2;
+	optional int32 indexStart = 3;
+	optional int32 ledsPerLocation = 4;
+	optional int32 locationCount = 5;
+	optional int32 effectID = 6; 	// Effect ID for this group
+};
+
+// Lighting effects to assign to a group
+message LightingEffect
+{
+	optional int32 ID = 1;
+	optional LightingEffectType effectType = 2;
+	optional LightingColorType colorType = 3;
+	optional uint32 singleColor = 4;
+	optional uint32 effectSpeed = 5;
+	optional bool effectReverse = 6;
+};
+
+// Each reaction adds 28 bytes
+ // Group ID is binary mask
+ //   ex. X X X 0 0 1 0 1 would be React to Group ID 1 and 3, ex. X X X 1 0 0 1 1 would be 1,2, and 5
+message LightingReaction
+{
+	optional int32 ID = 1;
+	optional int32 groupAssignedID = 2;
+	optional LightingReactionType reactionType = 3;
+	optional uint32 singleColor = 4;
+	optional uint32 inputMask = 5;
+	optional uint32 groupMask = 6;
+};
+
+message LightingOptions
+{
+	// Base Lighting Options
+	optional int32 dataPin = 1;
+	optional LEDFormat_Proto ledFormat = 2;
+	optional uint32 maxBrightness = 3;
+	optional uint32 brightnessSteps = 4;
+	optional uint32 totalCount = 5;
+	optional bool turnOffWhenSuspended = 6;
+	
+	// Group Assignments (Stickless, Joy, and Buttons) follow this order
+	optional LightingInputOrder inputOrder = 7;		
+	
+	// Groups, Effects, and Reactions
+	repeated LightingGroup lightingGroups = 8 [(nanopb).max_count = 5];
+	repeated LightingEffect lightingEffects = 9 [(nanopb).max_count = 5];
+	repeated LightingReaction lightingReactions = 10 [(nanopb).max_count = 5];
+
+	// Turbo: None / PWM / RGB
+	optional PLEDType turboType = 11;
+	optional int32 turboPin = 12;
+	optional uint32 turboColor = 13;
+
+	// PLEDs: None / PWM / RGB
+	optional PLEDType pledType = 14;						
+	optional int32 pledPins = 15 [(nanopb).max_count = 4]; 	
+	optional PLEDColorType pledColorType = 16;
+	optional uint32 pledColor = 17;
+}
+
+message CustomTheme
+{
+	optional uint32 customThemeUp = 1;
+	optional uint32 customThemeDown = 2;
+	optional uint32 customThemeLeft = 3;
+	optional uint32 customThemeRight = 4;
+	optional uint32 customThemeB1 = 5;
+	optional uint32 customThemeB2 = 6;
+	optional uint32 customThemeB3 = 7;
+	optional uint32 customThemeB4 = 8;
+	optional uint32 customThemeL1 = 9;
+	optional uint32 customThemeR1 = 10;
+	optional uint32 customThemeL2 = 11;
+	optional uint32 customThemeR2 = 12;
+	optional uint32 customThemeS1 = 13;
+	optional uint32 customThemeS2 = 14;
+	optional uint32 customThemeL3 = 15;
+	optional uint32 customThemeR3 = 16;
+	optional uint32 customThemeA1 = 17;
+	optional uint32 customThemeA2 = 18;
+	optional uint32 customThemeUpPressed = 19;
+	optional uint32 customThemeDownPressed = 20;
+	optional uint32 customThemeLeftPressed = 21;
+	optional uint32 customThemeRightPressed = 22;
+	optional uint32 customThemeB1Pressed = 23;
+	optional uint32 customThemeB2Pressed = 24;
+	optional uint32 customThemeB3Pressed = 25;
+	optional uint32 customThemeB4Pressed = 26;
+	optional uint32 customThemeL1Pressed = 27;
+	optional uint32 customThemeR1Pressed = 28;
+	optional uint32 customThemeL2Pressed = 29;
+	optional uint32 customThemeR2Pressed = 30;
+	optional uint32 customThemeS1Pressed = 31;
+	optional uint32 customThemeS2Pressed = 32;
+	optional uint32 customThemeL3Pressed = 33;
+	optional uint32 customThemeR3Pressed = 34;
+	optional uint32 customThemeA1Pressed = 35;
+	optional uint32 customThemeA2Pressed = 36;
 };
 
 // This has to be kept in sync with AnimationOptions in AnimationStation.hpp

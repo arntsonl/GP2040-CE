@@ -7,11 +7,10 @@ import { Trans, useTranslation } from 'react-i18next';
 
 import { AppContext } from '../Contexts/AppContext';
 import ColorPicker from '../Components/ColorPicker';
-import Section from '../Components/Section';
-import DraggableListGroup from '../Components/DraggableListGroup';
+import Section from '../Components/Section'
 import FormControl from '../Components/FormControl';
 import FormSelect from '../Components/FormSelect';
-import { BUTTONS } from '../Data/Buttons';
+import { BUTTONS, BUTTON_MASKS } from '../Data/Buttons';
 import LEDColors from '../Data/LEDColors';
 import { hexToInt } from '../Services/Utilities';
 import WebApi from '../Services/WebApi';
@@ -33,6 +32,19 @@ const LIGHTING_EFFECTS = [
     { label: 'Twinkle', value: 5 },
 ];
 
+const REACTION_TYPES = [
+    { label: 'Not Assigned', value: 0 },
+	{ label: 'Solid', value: 1 },
+	{ label: 'Fade-Out', value: 2 },
+    { label: 'Rainbow', value: 3}
+];
+
+const REACTION_GROUP = [
+    { label: 'Self', value: 0 },
+    { label: 'Group', value: 1 },
+	{ label: 'Self + Group', value: 2 }
+];
+
 const COLOR_EFFECTS = [
     { label: 'Single', value: 0 },
     { label: 'Rainbow', value: 1 },
@@ -40,17 +52,28 @@ const COLOR_EFFECTS = [
 
 ];
 
-const THEME_EFFECTS = [
-    { label: 'Single', value: 0 },
-	{ label: 'Custom Theme', value: 1 },
-	{ label: 'Rainbow', value: 2 },
-];
-
 const LED_FORMATS = [
 	{ label: 'GRB', value: 0 },
 	{ label: 'RGB', value: 1 },
 	{ label: 'GRBW', value: 2 },
 	{ label: 'RGBW', value: 3 },
+];
+
+const LED_TYPE = [
+    { label: 'OFF', value: 0 },
+	{ label: 'PWM', value: 1 },
+	{ label: 'RGB', value: 2 },
+];
+
+const PLED_COLOR = [
+    { label: 'Console', value: 0 },
+	{ label: 'Single', value: 1 },
+	{ label: 'Rainbow', value: 2 },
+];
+
+const TURBOLED_COLOR = [
+	{ label: 'Single', value: 1 },
+	{ label: 'Rainbow', value: 2 },
 ];
 
 const defaultValue = {
@@ -153,10 +176,7 @@ export default function LEDReconfigPage() {
                                         <Nav.Link eventKey="reactive">Reactive Effects</Nav.Link>
                                     </Nav.Item>
                                     <Nav.Item>
-                                        <Nav.Link eventKey="playerleds">Player LEDs</Nav.Link>
-                                    </Nav.Item>
-                                    <Nav.Item>
-                                        <Nav.Link eventKey="turboleds">Turbo LED</Nav.Link>
+                                        <Nav.Link eventKey="playerleds">Player & Turbo</Nav.Link>
                                     </Nav.Item>
                                 </Nav>
                             </Col>
@@ -277,7 +297,7 @@ export default function LEDReconfigPage() {
                                                 </FormSelect>
                                                 <FormControl
                                                     type="number"
-                                                    label="LEDs Per Object"
+                                                    label="LED Index (Start)"
                                                     name="dataPin"
                                                     className="form-control-sm"
                                                     groupClassName="col-sm-4 mb-3"
@@ -292,7 +312,7 @@ export default function LEDReconfigPage() {
                                             <Row>
                                                 <FormControl
                                                     type="number"
-                                                    label="Index LED Start"
+                                                    label="LEDs Per Location"
                                                     name="dataPin"
                                                     className="form-control-sm"
                                                     groupClassName="col-sm-4 mb-3"
@@ -305,7 +325,20 @@ export default function LEDReconfigPage() {
                                                 />
                                                 <FormControl
                                                     type="number"
-                                                    label="Index LED End"
+                                                    label="Number of Locations"
+                                                    name="brightnessSteps"
+                                                    className="form-control-sm"
+                                                    groupClassName="col-sm-4 mb-2"
+                                                    value={values.brightnessSteps}
+                                                    error={errors.brightnessSteps}
+                                                    isInvalid={errors.brightnessSteps}
+                                                    onChange={handleChange}
+                                                    min={1}
+                                                    max={10}
+                                                />
+                                                <FormControl
+                                                    type="number"
+                                                    label="LED Index (End)"
                                                     name="dataPin"
                                                     className="form-control-sm"
                                                     groupClassName="col-sm-4 mb-3"
@@ -316,19 +349,6 @@ export default function LEDReconfigPage() {
                                                     min={-1}
                                                     max={29}
                                                     disabled
-                                                />
-                                                <FormControl
-                                                    type="number"
-                                                    label="Number of Objects"
-                                                    name="brightnessSteps"
-                                                    className="form-control-sm"
-                                                    groupClassName="col-sm-4 mb-2"
-                                                    value={values.brightnessSteps}
-                                                    error={errors.brightnessSteps}
-                                                    isInvalid={errors.brightnessSteps}
-                                                    onChange={handleChange}
-                                                    min={1}
-                                                    max={10}
                                                 />
                                             </Row>
                                             <Button className="form-control-sm"
@@ -345,7 +365,23 @@ export default function LEDReconfigPage() {
                                         <Tab.Container id="list-group-tabs-example" defaultActiveKey="#link1">
                                             <Row>
                                                 <FormSelect
-                                                    label="Group Selected"
+                                                    label="Lighting Effect Selected"
+                                                    name="gorupSelected"
+                                                    className="form-select-sm"
+                                                    groupClassName="col-sm-4 mb-3"
+                                                    value={values.ledFormat}
+                                                    error={errors.ledFormat}
+                                                    isInvalid={errors.ledFormat}
+                                                    onChange={handleChange}
+                                                >
+                                                    {[1,2,3,4,5].map((o, i) => (
+                                                        <option key={`ledGroupNum-option-${o}`} value={o}>
+                                                            {o}
+                                                        </option>
+                                                    ))}
+                                                </FormSelect>
+                                                <FormSelect
+                                                    label="Group Assignment"
                                                     name="gorupSelected"
                                                     className="form-select-sm"
                                                     groupClassName="col-sm-4 mb-3"
@@ -377,19 +413,6 @@ export default function LEDReconfigPage() {
                                                         </option>
                                                     ))}
                                                 </FormSelect>
-                                                <Form.Group className="col-sm-4 mb-3" controlId="formBasicEmail">
-                                                    <Form.Label>Does Not React</Form.Label>
-                                                    <Form.Check 
-                                                        label="Enabled"                                                       
-                                                        type="switch"
-                                                        id="custom-switch"
-                                                        name="switchReverse"
-                                                        className="col-sm-4 mb-3"
-                                                        isInvalid={false}
-                                                        onChange={(e) => {
-                                                        }}
-                                                    />
-                                                </Form.Group>
                                             </Row>
                                             <Row>
                                                 <FormSelect
@@ -440,19 +463,6 @@ export default function LEDReconfigPage() {
                                                     max={30}
                                                 />
                                                 <Form.Group className="col-sm-4 mb-3" controlId="formBasicEmail">
-                                                    <Form.Label>Lock Speed</Form.Label>
-                                                    <Form.Check 
-                                                        label="Enabled"                                                       
-                                                        type="switch"
-                                                        id="custom-switch"
-                                                        name="switchReverse"
-                                                        className="col-sm-4 mb-3"
-                                                        isInvalid={false}
-                                                        onChange={(e) => {
-                                                        }}
-                                                    />
-                                                </Form.Group>
-                                                <Form.Group className="col-sm-4 mb-3" controlId="formBasicEmail">
                                                     <Form.Label>Reverse Effect</Form.Label>
                                                     <Form.Check 
                                                         label="Enabled"                                                       
@@ -470,16 +480,183 @@ export default function LEDReconfigPage() {
                                     </Section>
                                     <Button type="submit">{t('Common:button-save-label')}</Button>
                                 </Tab.Pane>
-                                <Tab.Pane eventKey="turboleds">
-                                    <div id="Turbo LED">
-                                        <Row className="mb-3">
-                                            <div className="col-sm-3 mb-3">
-                                                <Button type="button">
-                                                    Save
-                                                </Button>
-                                            </div>
-                                        </Row>
-                                    </div>
+                                <Tab.Pane eventKey="reactive">
+                                    <Section title="Reactive Effects">
+                                        <Tab.Container id="list-group-tabs-example" defaultActiveKey="#link1">
+                                            <Row>
+                                                <FormSelect
+                                                    label="Reaction ID"
+                                                    name="reactSelected"
+                                                    className="form-select-sm"
+                                                    groupClassName="col-sm-4 mb-3"
+                                                    value={values.ledFormat}
+                                                    error={errors.ledFormat}
+                                                    isInvalid={errors.ledFormat}
+                                                    onChange={handleChange}
+                                                >
+                                                    {[1,2,3,4,5].map((o, i) => (
+                                                        <option key={`ledGroupNum-option-${o}`} value={o}>
+                                                            {o}
+                                                        </option>
+                                                    ))}
+                                                </FormSelect>
+                                                <FormSelect
+                                                    label="Reaction Type"
+                                                    name="Reaction Types"
+                                                    className="form-select-sm"
+                                                    groupClassName="col-sm-4 mb-3"
+                                                >
+                                                    {REACTION_TYPES.map((o, i) => (
+                                                        <option key={`reactionEffectsType-option-${i}`} value={o.value}>
+                                                            {o.label}
+                                                        </option>
+                                                    ))}
+                                                </FormSelect>
+                                                <Form.Group className="col-sm-4 mb-3" controlId="formBasicEmail">
+                                                    <Form.Label htmlFor="exampleColorInput">Reaction Color</Form.Label>
+                                                    <Form.Group className="mx-4" controlId="formBasicEmail">
+                                                        <Form.Control
+                                                            type="color"
+                                                            id="exampleColorInput"
+                                                            defaultValue="#563d7c"
+                                                            title="Choose your color"
+                                                        />
+                                                    </Form.Group>
+                                                </Form.Group>
+                                            </Row>
+                                            <Row>
+                                                <Form.Group
+                                                    name="reactSelected"
+                                                    className="col-sm-4 mb-3">
+                                                    <Form.Label>
+                                                        Reaction to Input
+                                                    </Form.Label>
+                                                    <Form.Group
+                                                        name="reactSelected">
+                                                        <Button>
+                                                            Select Input
+                                                        </Button>
+                                                    </Form.Group>
+                                                </Form.Group>
+                                                <Form.Group
+                                                    name="reactSelected"
+                                                    className="col-sm-4 mb-3">
+                                                    <Form.Label>
+                                                        Group Assignment
+                                                    </Form.Label>
+                                                    <Form.Group
+                                                        name="reactSelected">
+                                                        <Button>
+                                                            Select Input
+                                                        </Button>
+                                                    </Form.Group>
+                                                </Form.Group>
+                                                <Form.Group className="col-sm-4 mb-3" controlId="formBasicEmail">
+                                                    <Form.Label>Self Reaction</Form.Label>
+                                                    <Form.Check 
+                                                        label="Enabled"                                                       
+                                                        type="switch"
+                                                        id="custom-switch"
+                                                        name="switchReverse"
+                                                        className="col-sm-4 mb-3"
+                                                        isInvalid={false}
+                                                        onChange={(e) => {
+                                                        }}
+                                                    />
+                                                </Form.Group>
+                                            </Row>
+                                        </Tab.Container>
+                                    </Section>
+                                    <Button type="submit">{t('Common:button-save-label')}</Button>
+                                </Tab.Pane>
+                                <Tab.Pane eventKey="playerleds">
+                                    <Section title="Player LEDs & Turbo LED">
+                                        <Tab.Container id="list-group-tabs-example" defaultActiveKey="#link1">
+                                            <Row>
+                                                <FormSelect
+                                                    label={t('LedConfig:player.pled-type-label')}
+                                                    name="pledType"
+                                                    className="form-select-sm"
+                                                    groupClassName="col-sm-3 mb-3"
+                                                >
+                                                    {LED_TYPE.map((o, i) => (
+                                                        <option key={`pledType-option-${o.value}`} value={o.value}>
+                                                            {o.label}
+                                                        </option>
+                                                    ))}
+                                                </FormSelect>
+                                                <FormSelect
+                                                    label="Player LEDs Color"
+                                                    name="pledType"
+                                                    className="form-select-sm"
+                                                    groupClassName="col-sm-3 mb-3"
+                                                >
+                                                    {PLED_COLOR.map((o, i) => (
+                                                        <option key={`pledType-option-${o.value}`} value={o.value}>
+                                                            {o.label}
+                                                        </option>
+                                                    ))}
+                                                </FormSelect>
+                                                <FormControl
+                                                    type="number"
+                                                    label="Player LEDs Index"
+                                                    name="playerLedIndex"
+                                                    className="form-control-sm"
+                                                    groupClassName="col-sm-3 mb-3"
+                                                    value={15}
+                                                    min={1}
+                                                    max={30}
+                                                />
+                                                <Form.Group className="col-sm-3 mb-3" controlId="formBasicEmail">
+                                                    <Form.Label htmlFor="exampleColorInput">Player LED Color</Form.Label>
+                                                    <Form.Group className="mx-4" controlId="formBasicEmail">
+                                                        <Form.Control
+                                                            type="color"
+                                                            id="exampleColorInput"
+                                                            defaultValue="#563d7c"
+                                                            title="Choose your color"
+                                                        />
+                                                    </Form.Group>
+                                                </Form.Group>
+                                            </Row>
+                                            <Row>
+                                                <FormSelect
+                                                    label="Turbo LED Type"
+                                                    name="pledType"
+                                                    className="form-select-sm"
+                                                    groupClassName="col-sm-3 mb-3"
+                                                >
+                                                    {LED_TYPE.map((o, i) => (
+                                                        <option key={`pledType-option-${o.value}`} value={o.value}>
+                                                            {o.label}
+                                                        </option>
+                                                    ))}
+                                                </FormSelect>
+                                                <FormControl
+                                                    type="number"
+                                                    label="Turbo LED Index"
+                                                    name="playerLedIndex"
+                                                    className="form-control-sm"
+                                                    groupClassName="col-sm-3 mb-3"
+                                                    value={15}
+                                                    min={1}
+                                                    max={30}
+                                                />
+                                                <Form.Group className="col-sm-3 mb-3" controlId="formBasicEmail">
+                                                    <Form.Label htmlFor="exampleColorInput">Turbo LED Color</Form.Label>
+                                                    <Form.Group className="mx-4" controlId="formBasicEmail">
+                                                        <Form.Control
+                                                            type="color"
+                                                            id="exampleColorInput"
+                                                            defaultValue="#563d7c"
+                                                            title="Choose your color"
+                                                        />
+                                                    </Form.Group>
+                                                </Form.Group>
+                                            </Row>
+                                        </Tab.Container>
+                                    </Section>
+                                    <Button type="submit">{t('Common:button-save-label')}</Button>
                                 </Tab.Pane>
                             </Tab.Content>
                             </Col>
