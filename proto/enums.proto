@@ -227,6 +227,14 @@ enum GpioAction
     BUTTON_PRESS_MACRO_6         = 39;
 }
 
+enum GpioDirection
+{
+    option (nanopb_enumopt).long_names = false;
+
+    GPIO_DIRECTION_INPUT = 0;
+    GPIO_DIRECTION_OUTPUT = 1;
+}
+
 enum GamepadHotkey
 {
     option (nanopb_enumopt).long_names = false;
@@ -352,7 +360,7 @@ enum GPShape_Type
     
     GP_SHAPE_ELLIPSE = 0;
     GP_SHAPE_SQUARE = 1;
-    GP_SHAPE_DIAMOND = 2;
+    GP_SHAPE_LINE = 2;
     GP_SHAPE_POLYGON = 3;
     GP_SHAPE_ARC = 4;
 };
