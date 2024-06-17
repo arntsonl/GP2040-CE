@@ -16,6 +16,13 @@ const __dirname = path.dirname(__filename);
 const { pico: picoController } = JSON.parse(
 	readFileSync(path.resolve(__dirname, '../src/Data/Controllers.json'), 'utf8'),
 );
+const PinMappings = Object.entries(picoController).reduce(
+	(acc, [key, value]) => ({
+		...acc,
+		[key]: { action: value, customButtonMask: 0, customDpadMask: 0 },
+	}),
+	{},
+);
 
 const port = process.env.PORT || 8080;
 
@@ -254,7 +261,7 @@ app.get('/api/getCustomTheme', (req, res) => {
 });
 
 app.get('/api/getPinMappings', (req, res) => {
-	return res.send(picoController);
+	return res.send(PinMappings);
 });
 
 app.get('/api/getKeyMappings', (req, res) =>
@@ -374,7 +381,7 @@ app.get('/api/getWiiControls', (req, res) =>
 
 app.get('/api/getProfileOptions', (req, res) => {
 	return res.send({
-		alternativePinMappings: [picoController, picoController, picoController],
+		alternativePinMappings: [PinMappings, PinMappings, PinMappings],
 	});
 });
 
@@ -423,7 +430,8 @@ app.get('/api/getAddonsOptions', (req, res) => {
 		analogAdc2Mode: 2,
 		analogAdc2Invert: 0,
 		forced_circularity: 0,
-		analog_deadzone: 5,
+		inner_deadzone: 5,
+		outer_deadzone: 95,
 		auto_calibrate: 0,
 		bootselButtonMap: 0,
 		buzzerPin: -1,
