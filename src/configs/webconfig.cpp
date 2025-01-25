@@ -2209,13 +2209,13 @@ std::string getHeldPins()
     // Initialize unassigned pins so that they can be read from
     std::vector<uint> uninitPins;
     for (uint32_t pin = 0; pin < NUM_BANK0_GPIOS; pin++) {
-        switch (pin) {
+        /*switch (pin) {
             case 23:
             case 24:
             case 25:
             case 29:
                 continue;
-        }
+        }*/
         if (gpio_get_function(pin) == GPIO_FUNC_NULL) {
             uninitPins.push_back(pin);
             gpio_init(pin);             // Initialize pin
