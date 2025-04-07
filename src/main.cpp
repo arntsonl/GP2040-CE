@@ -3,6 +3,8 @@
  * SPDX-FileCopyrightText: Copyright (c) 2024 OpenStickCommunity (gp2040-ce.info)
  */
 
+#define LWIP_DEBUG 1
+
 // Pi Pico includes
 #include "pico/multicore.h"
 

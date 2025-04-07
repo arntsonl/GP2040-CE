@@ -41,7 +41,7 @@ public:
 	GpioMappings& getGpioMappings() { return config.gpioMappings; }
 	KeyboardMapping& getKeyboardMapping() { return config.keyboardMapping; }
 	DisplayOptions& getDisplayOptions() { return config.displayOptions; }
-	DisplayOptions& getPreviewDisplayOptions() { return previewDisplayOptions; }
+	//DisplayOptions& getPreviewDisplayOptions() { return previewDisplayOptions; }
 	LEDOptions& getLedOptions() { return config.ledOptions; }
 	AddonOptions& getAddonOptions() { return config.addonOptions; }
 	AnimationOptions& getAnimationOptions() { return config.animationOptions; }
@@ -75,7 +75,7 @@ private:
 	Gamepad * gamepad = nullptr;    		// Gamepad data
 	Gamepad * processedGamepad = nullptr; // Gamepad with ONLY processed data
 	uint8_t featureData[32]; // USB X-Input Feature Data
-	DisplayOptions previewDisplayOptions;
+	//DisplayOptions previewDisplayOptions;
 	Config config;
 	GpioMappingInfo functionalPinMappings[NUM_BANK0_GPIOS];
 	uint32_t systemFlashSize;

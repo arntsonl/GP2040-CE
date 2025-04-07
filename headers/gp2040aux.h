@@ -17,9 +17,9 @@ public:
     void run();             // loop core1
     bool ready(){ return isReady; }
 private:
-    GPDriver * inputDriver;
+    GPDriver * inputDriver = nullptr;
     AddonManager addons;
-    bool isReady;
+    bool isReady = false;
 };
 
 #endif

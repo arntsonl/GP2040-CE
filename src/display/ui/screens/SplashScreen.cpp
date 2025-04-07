@@ -14,17 +14,17 @@ void SplashScreen::shutdown() {
 }
 
 void SplashScreen::drawScreen() {
-	if (getDisplayOptions().splashMode == static_cast<SplashMode>(SPLASH_MODE_NONE)) {
+	if (Storage::getInstance().getDisplayOptions().splashMode == static_cast<SplashMode>(SPLASH_MODE_NONE)) {
 		getRenderer()->drawText(0, 4, " Splash NOT enabled.");
     } else {
             // Default, display static or custom image
-            getRenderer()->drawSprite((uint8_t*) getDisplayOptions().splashImage.bytes, 128, 64, 16, 0, 0, 1);
+            getRenderer()->drawSprite((uint8_t*) Storage::getInstance().getDisplayOptions().splashImage.bytes, 128, 64, 16, 0, 0, 1);
 	}
 }
 
 int8_t SplashScreen::update() {
     uint32_t elapsedDuration = getMillis() - splashStartTime;
-    uint32_t splashDuration = getDisplayOptions().splashDuration;
+    uint32_t splashDuration = Storage::getInstance().getDisplayOptions().splashDuration;
     if (!configMode) {
         // still running
         if (splashDuration != 0 && (elapsedDuration >= splashDuration)) {

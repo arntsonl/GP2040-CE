@@ -207,7 +207,7 @@ private:
     bool pressedDown();
     bool pressedLeft();
     bool pressedRight();
-    const DisplayOptions& getDisplayOptions();
+    //const DisplayOptions& getDisplayOptions();
     bool isDisplayPowerOff();
     void setDisplayPower(uint8_t status);
     uint32_t displaySaverTimeout = 0;

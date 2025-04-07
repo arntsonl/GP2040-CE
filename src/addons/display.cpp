@@ -209,10 +209,11 @@ void DisplayAddon::process() {
     }
 }
 
+/*
 const DisplayOptions& DisplayAddon::getDisplayOptions() {
     bool configMode = DriverManager::getInstance().isConfigMode();
     return configMode ? Storage::getInstance().getPreviewDisplayOptions() : Storage::getInstance().getDisplayOptions();
-}
+}*/
 
 
 void DisplayAddon::handleSystemRestart(GPEvent* e) {

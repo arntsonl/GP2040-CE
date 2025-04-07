@@ -118,7 +118,7 @@ void DisplaySaverScreen::drawBounceScene() {
 
     if (bounceSpriteY <= 0 || bounceSpriteY + scaledHeight >= SCREEN_HEIGHT) bounceSpriteVelocityY = -bounceSpriteVelocityY;
 
-    getRenderer()->drawSprite((uint8_t *)getDisplayOptions().splashImage.bytes, bounceSpriteWidth, bounceSpriteHeight, 0, bounceSpriteX, bounceSpriteY, 0, bounceScale);
+    getRenderer()->drawSprite((uint8_t *)Storage::getInstance().getDisplayOptions().splashImage.bytes, bounceSpriteWidth, bounceSpriteHeight, 0, bounceSpriteX, bounceSpriteY, 0, bounceScale);
 }
 
 void DisplaySaverScreen::drawPipeScene() {
@@ -178,7 +178,7 @@ void DisplaySaverScreen::drawToasterScene() {
     for (uint16_t i = 0; i < toasters.size(); ++i) {
         ToastParams& sprite = toasters[i];
 
-        getRenderer()->drawSprite((uint8_t *) getDisplayOptions().splashImage.bytes, toasterSpriteWidth, toasterSpriteHeight, 0, sprite.x, sprite.y, 0, sprite.scale);
+        getRenderer()->drawSprite((uint8_t *) Storage::getInstance().getDisplayOptions().splashImage.bytes, toasterSpriteWidth, toasterSpriteHeight, 0, sprite.x, sprite.y, 0, sprite.scale);
 
         sprite.x += sprite.dx;
         sprite.y += sprite.dy;
