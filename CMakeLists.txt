@@ -166,6 +166,7 @@ src/gamepad.cpp
 src/gamepad/GamepadState.cpp
 src/addonmanager.cpp
 src/playerleds.cpp
+src/interval_override.cpp
 src/drivers/shared/xinput_host.cpp
 src/drivers/shared/xgip_protocol.cpp
 src/drivers/astro/AstroDriver.cpp
