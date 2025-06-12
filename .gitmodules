@@ -1,0 +1,6 @@
+[submodule "lib/tinyusb"]
+	path = lib/tinyusb
+	url = https://github.com/jfedor2/tinyusb.git
+[submodule "lib/Pico-PIO-USB"]
+	path = lib/Pico-PIO-USB
+	url = https://github.com/jfedor2/Pico-PIO-USB.git
