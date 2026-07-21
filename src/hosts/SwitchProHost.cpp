@@ -110,7 +110,7 @@ void SwitchProHost::update()
     tuh_hid_send_report(_dev_addr, _instance, 0, &out_report, report_size);
 }
 
-void SwitchProHost::process(uint8_t const* report, uint16_t len) {
+void SwitchProHost::report_received(uint8_t dev_addr, uint8_t instance, uint8_t const* report, uint16_t len) {
     if (len == 0)
         return;
 

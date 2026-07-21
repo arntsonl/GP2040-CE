@@ -27,7 +27,7 @@ void GoogleStadiaHost::initialize(uint8_t dev_addr, uint8_t instance, uint16_t v
     _controller_host_state.ry = GAMEPAD_JOYSTICK_MID;
 }
 
-void GoogleStadiaHost::process(uint8_t const *report, uint16_t len) {
+void GoogleStadiaHost::report_received(uint8_t dev_addr, uint8_t instance, uint8_t const* report, uint16_t len) {
     google_stadia_report_t controller_report;
 
     memcpy(&controller_report, report, sizeof(controller_report));

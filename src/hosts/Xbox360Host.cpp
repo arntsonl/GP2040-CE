@@ -70,10 +70,8 @@ void Xbox360Host::update() {
     xinput_set_rumble(leftRumble, rightRumble);
 }
 
-void Xbox360Host::process(uint8_t const* report, uint16_t len) {
+void Xbox360Host::report_received(uint8_t dev_addr, uint8_t instance, uint8_t const* report, uint16_t len) {
     XInputReport controller_report;
-
-   
 
     if (len < sizeof(XInputReport)) {
 #ifdef GAMEPAD_HOST_DEBUG

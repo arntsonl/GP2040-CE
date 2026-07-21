@@ -25,7 +25,7 @@ void Ultrastik360Host::initialize(uint8_t dev_addr, uint8_t instance, uint16_t v
     _controller_host_state.ly = GAMEPAD_JOYSTICK_MID;
 }
 
-void Ultrastik360Host::process(uint8_t const* report, uint16_t len) {
+void Ultrastik360Host::report_received(uint8_t dev_addr, uint8_t instance, uint8_t const* report, uint16_t len) {
     ultrastik360_t controller_report;
     memcpy(&controller_report, report, sizeof(controller_report));
     _controller_host_state.lx = map(controller_report.GD_GamePadPointerX, 0, 255, GAMEPAD_JOYSTICK_MIN,GAMEPAD_JOYSTICK_MAX);

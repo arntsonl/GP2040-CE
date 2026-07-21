@@ -29,7 +29,7 @@ void DualsensePS5Host::initialize(uint8_t dev_addr, uint8_t instance, uint16_t v
     memset(&prevReport, 0, sizeof(P5GenerorReport));
 }
 
-void DualsensePS5Host::process(uint8_t const* report, uint16_t len) {
+void DualsensePS5Host::report_received(uint8_t dev_addr, uint8_t instance, uint8_t const* report, uint16_t len) {
     P5GenerorReport controller_report;
     if (report[0] == 1) {
         memcpy(&controller_report, report, sizeof(controller_report));

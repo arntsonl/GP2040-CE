@@ -18,7 +18,8 @@ class GPHost {
 public:
     virtual ~GPHost() { }
     virtual void initialize(uint8_t dev_addr, uint8_t instance, uint16_t vendor_id, uint16_t product_id, uint8_t const* desc_report, uint16_t desc_len) = 0;
-    virtual void process(uint8_t const* report, uint16_t len) = 0;
+    virtual void report_received(uint8_t dev_addr, uint8_t instance, uint8_t const* report, uint16_t len) = 0;
+    virtual void report_sent(uint8_t dev_addr, uint8_t instance, uint8_t const* report, uint16_t len) = 0;
     virtual void update() = 0;
     virtual void gamepad(Gamepad * gamepad) = 0;
     virtual void shutdown() = 0;

@@ -10,10 +10,7 @@
 #include "hosts/Ultrastik360Host.h"
 #include "hosts/SwitchProHost.h"
 #include "hosts/Xbox360Host.h"
-
-/*
 #include "hosts/XboxOneHost.h"
-*/
 
 void GamepadUSBHostListener::setup() {
     _controller_host = nullptr;
@@ -89,10 +86,9 @@ void GamepadUSBHostListener::xmount(uint8_t dev_addr, uint8_t instance, uint8_t 
     _controller_host = nullptr;
     if ( Xbox360Host::match(dev_addr, instance, vid, pid, controllerType) ) {
         _controller_host = new Xbox360Host();
-    }
-    /* else if ( XboxOneHost::match(vid, pid && controllerType == 2 ) {
+    } else if ( XboxOneHost::match(dev_addr, instance, vid, pid, controllerType) ) {
         _controller_host = new XboxOneHost();
-    }*/
+    }
 
     if ( _controller_host != nullptr ) {
         _controller_dev_addr = dev_addr;
@@ -119,8 +115,16 @@ void GamepadUSBHostListener::report_received(uint8_t dev_addr, uint8_t instance,
     if ( _controller_host != nullptr && 
         _controller_dev_addr == dev_addr &&
         _controller_instance == instance ) {
-        _controller_host->process(report, len);
+        _controller_host->report_received(dev_addr, instance, report, len);
     } 
+}
+
+void GamepadUSBHostListener::report_sent(uint8_t dev_addr, uint8_t instance, uint8_t const* report, uint16_t len) {
+    if ( _controller_host != nullptr && 
+        _controller_dev_addr == dev_addr &&
+        _controller_instance == instance ) {
+        _controller_host->report_received(dev_addr, instance, report, len);
+    }
 }
 
 void GamepadUSBHostListener::set_report_complete(uint8_t dev_addr, uint8_t instance, uint8_t report_id, uint8_t report_type, uint16_t len) {

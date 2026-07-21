@@ -38,7 +38,7 @@ void DrivingForceHost::initialize(uint8_t dev_addr, uint8_t instance, uint16_t v
     }
 }
 
-void DrivingForceHost::process(uint8_t const* report, uint16_t len) {
+void DrivingForceHost::report_received(uint8_t dev_addr, uint8_t instance, uint8_t const* report, uint16_t len) {
     PS3ReportAlt ps3Report;
     memcpy(&ps3Report, report, len);
 #ifdef GAMEPAD_HOST_DEBUG

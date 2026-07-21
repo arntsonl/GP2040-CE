@@ -130,7 +130,7 @@ void DualshockPS4Host::update() {
     }
 }
 
-void DualshockPS4Host::process(uint8_t const* report, uint16_t len) {
+void DualshockPS4Host::report_received(uint8_t dev_addr, uint8_t instance, uint8_t const* report, uint16_t len) {
     PS4Report controller_report;
 
     // If its an input report

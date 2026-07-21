@@ -105,8 +105,7 @@ void USBHostManager::xinput_report_sent_cb(uint8_t dev_addr, uint8_t instance, u
     }
 }
 
-void tuh_hid_mount_cb(uint8_t dev_addr, uint8_t instance, uint8_t const* desc_report, uint16_t desc_len)
-{
+void tuh_hid_mount_cb(uint8_t dev_addr, uint8_t instance, uint8_t const* desc_report, uint16_t desc_len) {
     USBHostManager::getInstance().hid_mount_cb(dev_addr, instance, desc_report, desc_len);
     if ( !tuh_hid_receive_report(dev_addr, instance) ) {
         // Error: cannot request report
